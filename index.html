@@ -196,7 +196,20 @@
                 answer: 0
             }
         ];
-
+        
+       // 处理用户点击事件以允许播放有声音的视频
+        let videoPlayed = false;
+        function handleUserInteraction() {
+            if (!videoPlayed) {
+                startVideo.play().catch((error) => {
+                    console.error('播放开始动画时出错:', error);
+                });
+                videoPlayed = true;
+                document.removeEventListener('click', handleUserInteraction);
+            }
+        }
+        document.addEventListener('click', handleUserInteraction);
+        
         startButton.addEventListener('click', () => {
             startVideo.pause();
             startPage.style.display = 'none';
